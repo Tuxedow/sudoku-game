@@ -530,25 +530,40 @@
             }
 
             generateSudoku() {
-                this.solution = this.fillDiagonal();
+                // 从空棋盘开始生成完整解
+                this.solution = new Array(81).fill(0);
+                // 先随机填入几个数字作为起点
+                for (let i = 0; i < 5; i++) {
+                    const idx = Math.floor(Math.random() * 81);
+                    const num = Math.floor(Math.random() * 9) + 1;
+                    if (this.isValid(this.solution, idx, num)) {
+                        this.solution[idx] = num;
+                    }
+                }
+                // 用回溯法填充完整棋盘
                 this.solve(this.solution);
                 this.createPuzzle();
             }
 
             fillDiagonal() {
                 const board = new Array(81).fill(0);
-                for (let box = 0; box < 9; box += 3) {
-                    this.fillBox(board, box);
+                // 只填充对角线上的三个宫格(它们互不影响)
+                const boxIndices = [0, 4, 8]; // (0,0), (1,1), (2,2) 位置的宫格
+                for (const boxIdx of boxIndices) {
+                    this.fillBox(board, boxIdx);
                 }
                 return board;
             }
 
-            fillBox(board, boxStart) {
-                const nums = this.shuffle([1,2,3,4,5,6,7,8,9]);
+            fillBox(board, boxIdx) {
+                const row = Math.floor(boxIdx / 3) * 3;
+                const col = (boxIdx % 3) * 3;
+                const nums = this.shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9]);
                 let idx = 0;
                 for (let i = 0; i < 3; i++) {
                     for (let j = 0; j < 3; j++) {
-                        board[boxStart + i * 9 + j] = nums[idx++];
+                        const pos = (row + i) * 9 + (col + j);
+                        board[pos] = nums[idx++];
                     }
                 }
             }
