@@ -6,18 +6,39 @@
     <title>数独 · Sudoku</title>
     <style>
         :root {
-            --bg: #FFFFFF;
-            --text-primary: #333333;
-            --text-fixed: #000000;
-            --text-user: #0066CC;
-            --cell-selected: #F5F5F5;
-            --cell-highlight: #E8F4FD;
-            --cell-same: #FEF5E7;
-            --cell-error: #FDECEC;
-            --line-thick: #666666;
-            --line-thin: #DDDDDD;
-            --btn-bg: #007AFF;
-            --btn-hover: #0056CC;
+            /* 日光色主题 - 温暖明亮的浅色 */
+            --bg: #FFF8E7;
+            --text-primary: #5D4E37;
+            --text-fixed: #8B7355;
+            --text-user: #D4A373;
+            --cell-selected: #FAF0DC;
+            --cell-highlight: #FFE8CC;
+            --cell-same: #FFDFBF;
+            --cell-error: #FFE4E4;
+            --line-thick: #C4A77D;
+            --line-thin: #E8DCC8;
+            --btn-bg: #E6A23C;
+            --btn-hover: #CC8800;
+            --board-bg: #FFFAF0;
+            --overlay-bg: rgba(255,248,231,0.95);
+        }
+
+        [data-theme="dark"] {
+            /* 午夜色主题 - 深蓝紫的深色 */
+            --bg: #0F0F23;
+            --text-primary: #E8E8F0;
+            --text-fixed: #9898B0;
+            --text-user: #7B68EE;
+            --cell-selected: #1A1A2E;
+            --cell-highlight: #16213E;
+            --cell-same: #1F1F3D;
+            --cell-error: #2D1F2D;
+            --line-thick: #4A4A6A;
+            --line-thin: #2A2A3E;
+            --btn-bg: #6C5CE7;
+            --btn-hover: #8B7CF7;
+            --board-bg: #16162A;
+            --overlay-bg: rgba(15,15,35,0.95);
         }
 
         * {
@@ -54,7 +75,7 @@
 
         .subtitle {
             font-size: 12px;
-            color: #999;
+            color: var(--line-thick);
             letter-spacing: 2px;
             text-transform: uppercase;
         }
@@ -70,7 +91,7 @@
 
         .difficulty {
             display: flex;
-            background: #F5F5F5;
+            background: var(--cell-selected);
             border-radius: 8px;
             overflow: hidden;
         }
@@ -80,18 +101,18 @@
             border: none;
             background: transparent;
             font-size: 13px;
-            color: #666;
+            color: var(--text-primary);
             cursor: pointer;
             transition: all 0.3s ease;
         }
 
         .difficulty button.active {
             background: var(--text-primary);
-            color: white;
+            color: var(--bg);
         }
 
         .difficulty button:hover:not(.active) {
-            background: #E8E8E8;
+            background: var(--line-thin);
         }
 
         .game-info {
@@ -105,7 +126,7 @@
         .timer {
             font-size: 16px;
             font-weight: 300;
-            color: #666;
+            color: var(--text-primary);
             font-variant-numeric: tabular-nums;
         }
 
@@ -125,6 +146,24 @@
             transform: scale(1.02);
         }
 
+        .theme-btn {
+            width: 36px;
+            height: 36px;
+            border: 1px solid var(--line-thin);
+            background: var(--board-bg);
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            color: var(--text-primary);
+        }
+
+        .theme-btn:hover {
+            border-color: var(--text-primary);
+        }
+
         .board-container {
             animation: fadeIn 0.6s ease 0.3s both;
         }
@@ -137,6 +176,7 @@
             border: 2px solid var(--line-thick);
             border-radius: 4px;
             overflow: hidden;
+            background: var(--board-bg);
         }
 
         .cell {
@@ -223,7 +263,7 @@
             width: 40px;
             height: 40px;
             border: 1px solid var(--line-thin);
-            background: white;
+            background: var(--board-bg);
             border-radius: 8px;
             font-size: 18px;
             cursor: pointer;
@@ -242,7 +282,7 @@
 
         .numpad button.action {
             font-size: 14px;
-            color: #666;
+            color: var(--text-primary);
         }
 
         .tools {
@@ -255,10 +295,10 @@
         .tool-btn {
             padding: 8px 14px;
             border: 1px solid var(--line-thin);
-            background: white;
+            background: var(--board-bg);
             border-radius: 6px;
             font-size: 12px;
-            color: #666;
+            color: var(--text-primary);
             cursor: pointer;
             transition: all 0.2s ease;
         }
@@ -280,7 +320,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(255,255,255,0.95);
+            background: var(--overlay-bg);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -299,11 +339,12 @@
             letter-spacing: 8px;
             margin-bottom: 20px;
             animation: scaleIn 0.5s ease 0.2s both;
+            color: var(--text-primary);
         }
 
         .win-time {
             font-size: 16px;
-            color: #666;
+            color: var(--text-primary);
             margin-bottom: 30px;
             animation: scaleIn 0.5s ease 0.3s both;
         }
@@ -311,7 +352,7 @@
         .play-again {
             padding: 12px 30px;
             background: var(--text-primary);
-            color: white;
+            color: var(--bg);
             border: none;
             border-radius: 8px;
             font-size: 14px;
@@ -386,6 +427,17 @@
     <div class="game-info">
         <span class="timer" id="timer">00:00</span>
         <button class="new-game-btn" id="newGame">新游戏</button>
+        <button class="theme-btn" id="themeBtn" title="切换主题">
+            <!-- 日光图标 (太阳) -->
+            <svg class="sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"/>
+                <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+            </svg>
+            <!-- 午夜图标 (月亮) -->
+            <svg class="moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+        </button>
     </div>
 
     <div class="board-container">
@@ -484,6 +536,35 @@
                 document.getElementById('hintBtn').addEventListener('click', () => this.hint());
                 document.getElementById('eraseBtn').addEventListener('click', () => this.erase());
 
+                // 主题切换功能
+                const themeBtn = document.getElementById('themeBtn');
+                const sunIcon = themeBtn.querySelector('.sun-icon');
+                const moonIcon = themeBtn.querySelector('.moon-icon');
+                const savedTheme = localStorage.getItem('sudoku-theme') || 'light';
+                document.documentElement.setAttribute('data-theme', savedTheme);
+
+                // 根据保存的主题显示对应图标
+                if (savedTheme === 'dark') {
+                    sunIcon.style.display = 'none';
+                    moonIcon.style.display = 'block';
+                }
+
+                themeBtn.addEventListener('click', () => {
+                    const currentTheme = document.documentElement.getAttribute('data-theme');
+                    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                    document.documentElement.setAttribute('data-theme', newTheme);
+                    localStorage.setItem('sudoku-theme', newTheme);
+
+                    // 切换图标显示
+                    if (newTheme === 'dark') {
+                        sunIcon.style.display = 'none';
+                        moonIcon.style.display = 'block';
+                    } else {
+                        sunIcon.style.display = 'block';
+                        moonIcon.style.display = 'none';
+                    }
+                });
+
                 document.querySelectorAll('.numpad button').forEach(btn => {
                     btn.addEventListener('click', (e) => {
                         const num = parseInt(e.target.dataset.num);
@@ -530,18 +611,17 @@
             }
 
             generateSudoku() {
-                // 从空棋盘开始生成完整解
-                this.solution = new Array(81).fill(0);
-                // 先随机填入几个数字作为起点
-                for (let i = 0; i < 5; i++) {
-                    const idx = Math.floor(Math.random() * 81);
-                    const num = Math.floor(Math.random() * 9) + 1;
-                    if (this.isValid(this.solution, idx, num)) {
-                        this.solution[idx] = num;
-                    }
+                // 使用正确的方法：先填充对角线宫格，再用回溯法
+                this.solution = this.fillDiagonal();
+                const solved = this.solve(this.solution);
+
+                // 验证：确保生成了有效的完整解
+                if (!solved || this.solution.includes(0)) {
+                    console.error('数独生成失败，重试中...');
+                    this.generateSudoku();
+                    return;
                 }
-                // 用回溯法填充完整棋盘
-                this.solve(this.solution);
+
                 this.createPuzzle();
             }
 
