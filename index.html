@@ -6,39 +6,39 @@
     <title>数独 · Sudoku</title>
     <style>
         :root {
-            /* 日光色主题 - 温暖明亮的浅色 */
-            --bg: #FFF8E7;
-            --text-primary: #5D4E37;
-            --text-fixed: #8B7355;
-            --text-user: #D4A373;
-            --cell-selected: #FAF0DC;
-            --cell-highlight: #FFE8CC;
-            --cell-same: #FFDFBF;
-            --cell-error: #FFE4E4;
-            --line-thick: #C4A77D;
-            --line-thin: #E8DCC8;
-            --btn-bg: #E6A23C;
-            --btn-hover: #CC8800;
-            --board-bg: #FFFAF0;
-            --overlay-bg: rgba(255,248,231,0.95);
+            /* 白色主题 - 乔布斯风格，极致简约 */
+            --bg: #FFFFFF;
+            --text-primary: #000000;
+            --text-fixed: #000000;
+            --text-user: #007AFF;
+            --cell-selected: #F5F5F5;
+            --cell-highlight: #F0F0F0;
+            --cell-same: #EBEBEB;
+            --cell-error: #FFE5E5;
+            --line-thick: #000000;
+            --line-thin: #E5E5E5;
+            --btn-bg: #000000;
+            --btn-hover: #333333;
+            --board-bg: #FFFFFF;
+            --overlay-bg: rgba(255,255,255,0.98);
         }
 
         [data-theme="dark"] {
-            /* 午夜色主题 - 深蓝紫的深色 */
-            --bg: #0F0F23;
-            --text-primary: #E8E8F0;
-            --text-fixed: #9898B0;
-            --text-user: #7B68EE;
-            --cell-selected: #1A1A2E;
-            --cell-highlight: #16213E;
-            --cell-same: #1F1F3D;
-            --cell-error: #2D1F2D;
-            --line-thick: #4A4A6A;
-            --line-thin: #2A2A3E;
-            --btn-bg: #6C5CE7;
-            --btn-hover: #8B7CF7;
-            --board-bg: #16162A;
-            --overlay-bg: rgba(15,15,35,0.95);
+            /* 黑色主题 - 乔布斯风格，极致简约 */
+            --bg: #000000;
+            --text-primary: #FFFFFF;
+            --text-fixed: #FFFFFF;
+            --text-user: #0A84FF;
+            --cell-selected: #1C1C1E;
+            --cell-highlight: #2C2C2E;
+            --cell-same: #3A3A3C;
+            --cell-error: #3D1F1F;
+            --line-thick: #FFFFFF;
+            --line-thin: #38383A;
+            --btn-bg: #FFFFFF;
+            --btn-hover: #E5E5E5;
+            --board-bg: #000000;
+            --overlay-bg: rgba(0,0,0,0.98);
         }
 
         * {
@@ -66,17 +66,17 @@
         }
 
         h1 {
-            font-size: 28px;
-            font-weight: 300;
-            letter-spacing: 4px;
-            margin-bottom: 8px;
+            font-size: 32px;
+            font-weight: 400;
+            letter-spacing: 6px;
+            margin-bottom: 4px;
             color: var(--text-primary);
         }
 
         .subtitle {
-            font-size: 12px;
+            font-size: 11px;
             color: var(--line-thick);
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             text-transform: uppercase;
         }
 
@@ -97,22 +97,22 @@
         }
 
         .difficulty button {
-            padding: 8px 16px;
+            padding: 8px 14px;
             border: none;
             background: transparent;
-            font-size: 13px;
+            font-size: 12px;
+            font-weight: 400;
             color: var(--text-primary);
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: opacity 0.2s ease;
         }
 
         .difficulty button.active {
-            background: var(--text-primary);
-            color: var(--bg);
+            font-weight: 600;
         }
 
         .difficulty button:hover:not(.active) {
-            background: var(--line-thin);
+            opacity: 0.6;
         }
 
         .game-info {
@@ -131,37 +131,36 @@
         }
 
         .new-game-btn {
-            padding: 8px 20px;
+            padding: 8px 16px;
             background: var(--text-primary);
-            color: white;
+            color: var(--bg);
             border: none;
-            border-radius: 6px;
-            font-size: 13px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: opacity 0.2s ease;
         }
 
         .new-game-btn:hover {
-            background: #000;
-            transform: scale(1.02);
+            opacity: 0.7;
         }
 
         .theme-btn {
-            width: 36px;
-            height: 36px;
-            border: 1px solid var(--line-thin);
-            background: var(--board-bg);
-            border-radius: 6px;
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: transparent;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s ease;
+            transition: opacity 0.2s ease;
             color: var(--text-primary);
         }
 
         .theme-btn:hover {
-            border-color: var(--text-primary);
+            opacity: 0.6;
         }
 
         .board-container {
@@ -260,20 +259,20 @@
         }
 
         .numpad button {
-            width: 40px;
-            height: 40px;
+            width: 36px;
+            height: 36px;
             border: 1px solid var(--line-thin);
             background: var(--board-bg);
-            border-radius: 8px;
-            font-size: 18px;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 400;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.15s ease;
             color: var(--text-primary);
         }
 
         .numpad button:hover {
             background: var(--cell-selected);
-            border-color: var(--text-primary);
         }
 
         .numpad button:active {
@@ -281,8 +280,7 @@
         }
 
         .numpad button.action {
-            font-size: 14px;
-            color: var(--text-primary);
+            font-size: 12px;
         }
 
         .tools {
@@ -293,24 +291,23 @@
         }
 
         .tool-btn {
-            padding: 8px 14px;
+            padding: 6px 12px;
             border: 1px solid var(--line-thin);
             background: var(--board-bg);
-            border-radius: 6px;
-            font-size: 12px;
+            border-radius: 4px;
+            font-size: 11px;
             color: var(--text-primary);
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: opacity 0.2s ease;
         }
 
         .tool-btn:hover {
-            border-color: var(--text-primary);
-            color: var(--text-primary);
+            opacity: 0.7;
         }
 
         .tool-btn.active {
             background: var(--text-primary);
-            color: white;
+            color: var(--bg);
             border-color: var(--text-primary);
         }
 
