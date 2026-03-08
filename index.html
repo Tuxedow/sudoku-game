@@ -217,7 +217,7 @@
         }
 
         .cell.same-number {
-            background: var(--cell-same);
+            background: #FFE066;
         }
 
         .cell.error {
@@ -795,22 +795,29 @@
 
                     if (this.selected !== null) {
                         const selectedNum = this.board[this.selected];
-                        if (selectedNum !== 0 && num === selectedNum && i !== this.selected) {
-                            cell.classList.add('same-number');
-                        }
-
-                        const row = Math.floor(this.selected / 9);
-                        const col = this.selected % 9;
+                        const selectedRow = Math.floor(this.selected / 9);
+                        const selectedCol = this.selected % 9;
+                        const selectedBoxRow = Math.floor(selectedRow / 3);
+                        const selectedBoxCol = Math.floor(selectedCol / 3);
                         const currentRow = Math.floor(i / 9);
                         const currentCol = i % 9;
+                        const currentBoxRow = Math.floor(currentRow / 3);
+                        const currentBoxCol = Math.floor(currentCol / 3);
 
-                        if (currentRow === row || currentCol === col) {
-                            cell.classList.add('highlight');
+                        // 点击的是数字：同一宫格内的相同数字显示黄色
+                        if (selectedNum !== 0) {
+                            if (num === selectedNum && i !== this.selected) {
+                                // 同一宫格内的相同数字
+                                if (selectedBoxRow === currentBoxRow && selectedBoxCol === currentBoxCol) {
+                                    cell.classList.add('same-number');
+                                }
+                            }
                         }
-
-                        if (Math.floor(row / 3) === Math.floor(currentRow / 3) &&
-                            Math.floor(col / 3) === Math.floor(currentCol / 3)) {
-                            cell.classList.add('highlight');
+                        // 点击的是空格：横竖行背景变为浅蓝色
+                        else {
+                            if (currentRow === selectedRow || currentCol === selectedCol) {
+                                cell.classList.add('highlight');
+                            }
                         }
                     }
 
