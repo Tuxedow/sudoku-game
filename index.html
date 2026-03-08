@@ -20,6 +20,7 @@
             --btn-hover: #0056CC;
             --board-bg: #FFFFFF;
             --overlay-bg: rgba(255,255,255,0.95);
+            --same-number-color: #CC9900;
         }
 
         [data-theme="dark"] {
@@ -37,6 +38,7 @@
             --btn-hover: #409CFF;
             --board-bg: #2C2C2E;
             --overlay-bg: rgba(28,28,30,0.95);
+            --same-number-color: #FFD700;
         }
 
         * {
@@ -218,6 +220,12 @@
 
         .cell.same-number {
             background: #FFF5CC !important;
+            color: var(--same-number-color) !important;
+        }
+
+        [data-theme="dark"] .cell.same-number {
+            background: #4A3C00 !important;
+            color: #FFD700 !important;
         }
 
         .cell.error {
